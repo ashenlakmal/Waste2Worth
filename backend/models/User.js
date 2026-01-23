@@ -45,9 +45,6 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// prevent duplicate emails
-userSchema.index({ email: 1 }, { unique: true });
-
 // hash password before save
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
