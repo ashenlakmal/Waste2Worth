@@ -17,7 +17,7 @@ exports.registerUser = async (req, res) => {
       confirmPassword
     } = req.body;
 
-    // Basic validation
+    // Validation
     if (
       !firstName ||
       !lastName ||
@@ -41,22 +41,22 @@ exports.registerUser = async (req, res) => {
     }
 
     // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user
+    // Create user (FIXED userType)
     const user = await User.create({
       firstName,
       lastName,
       location,
       email,
       phone,
+      userType: 'user',
       password: hashedPassword
     });
 
-    // Generate token
+    // Generate JWT
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      { id: user._id, email: user.email, userType: user.userType },
       process.env.JWT_SECRET,
       { expiresIn: '1d' }
     );
@@ -94,14 +94,17 @@ exports.loginUser = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      { id: user._id, email: user.email, userType: user.userType },
       process.env.JWT_SECRET,
       { expiresIn: '1d' }
     );
 
+    const { password: pw, ...userData } = user._doc;
+
     res.status(200).json({
       message: 'Login successful',
-      token
+      token,
+      user: userData
     });
 
   } catch (error) {
