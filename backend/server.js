@@ -2,31 +2,34 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const authRoutes = require('./routes/authRoutes');
+const User = require('./models/User');
 
-
-
+// Config
 dotenv.config();
 const app = express();
 
-// middleware
-app.use(express.json());
-app.use(cors());
-
-// Authentication routes
-app.use('/api/auth', authRoutes);
+// Middleware
+app.use(express.json()); app.use(cors());
 
 
-// DB connection
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Atlas connected"))
-  .catch((err) => console.error("Connection error:", err));
+    .then(() => console.log("✅ MongoDB Atlas Connected!"))
+    .catch((err) => console.error("❌ Connection Error: ", err));
 
 // start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(` Server Run in  port ${PORT}.`);
 });
 
 
-
+//edduser route
+app.post('/addUser', async (req, res) => {
+    try {
+        const newUser = new User(req.body);
+        await newUser.save();
+        res.status(201).send("User saved to MongoDB!");
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
