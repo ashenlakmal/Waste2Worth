@@ -1,9 +1,14 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    firstName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    lastName: {
       type: String,
       required: true,
       trim: true,
@@ -17,11 +22,11 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
 
+    // Password stored as plain text (as per requirement)
     password: {
       type: String,
       required: true,
       minlength: 6,
-      select: false,
     },
 
     location: {
@@ -29,10 +34,12 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
 
-    contactInfo: {
+    // Phone number only
+    phone: {
       type: String,
       required: true,
       trim: true,
+      match: [/^[0-9]{10}$/, "Phone number must be 10 digits"],
     },
 
     // ER diagram: Donor / Recipient / Both
@@ -44,12 +51,5 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-// hash password before save
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 12);
-  next();
-});
 
 module.exports = mongoose.model("User", userSchema);
