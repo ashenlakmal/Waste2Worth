@@ -1,0 +1,25 @@
+
+.bg-w2w-green, .btn-w2w-green {
+    background-color: #2D5A27 !important;
+}
+
+.register-wrapper {
+    min-height: 90vh; 
+    padding: 40px 0;
+}
+
+.register-container {
+    max-width: 1000px;
+    border: none !important;
+}
+
+
+.form-control, .form-select {
+    border: 1.5px solid #dee2e6 !important;
+}
+
+.custom-role-toggle {
+    background: #f0f0f0;
+    padding: 5px;
+    border-radius: 50px;
+}
