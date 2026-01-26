@@ -49,8 +49,8 @@
 }
 
 .btn-login-submit {
-    background-color: #2D5A27 !important; /* තද කොළ පැහැය */
-    color: #ffffff !important;           /* සුදු පැහැති අකුරු */
+    background-color: #2D5A27 !important; 
+    color: #ffffff !important;           
     font-weight: bold;
     border: none;
     border-radius: 5px;
@@ -58,7 +58,7 @@
     transition: 0.3s ease;
 }
 
-/* Mouse එක button එක උඩට ගෙනිච්චම සිදුවන වෙනස (Hover) */
+
 .btn-login-submit:hover {
     background-color: #1e3d1a !important; 
     color: #ffffff !important;
@@ -66,18 +66,18 @@
 }
 
 .btn-register-white {
-    background-color: #ffffff !important; /* සුදු පැහැති පසුබිම */
-    color: #000000 !important;           /* කළු පැහැති අකුරු */
-    border-radius: 50px !important;      /* සම්පූර්ණයෙන්ම වටකුරු හැඩය */
+    background-color: #ffffff !important; 
+    color: #000000 !important;           
+    border-radius: 50px !important;      
     border: none;
     transition: 0.3s ease;
     text-decoration: none;
     display: inline-block;
 }
 
-/* Mouse එක button එක උඩට ගෙනිච්චම සිදුවන වෙනස (Hover) */
+
 .btn-register-white:hover {
-    background-color: #f0f0f0 !important; /* පොඩි අළු පැහැයක් */
+    background-color: #f0f0f0 !important; 
     color: #000000 !important;
-    transform: scale(1.05);               /* පොඩ්ඩක් විශාල වීම */
+    transform: scale(1.05);               
 }
