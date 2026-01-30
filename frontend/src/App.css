@@ -1,0 +1,85 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+/* Button Hover Effects */
+.btn-donate:hover {
+  background-color: #23471f !important;
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+.btn-find:hover {
+  background-color: #d4e9d6 !important;
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* Card Hover Animation */
+.modern-card {
+  transition: all 0.3s ease;
+}
+
+.modern-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Navbar Login Button Hover */
+.btn-outline-login:hover {
+  background-color: #2D5A27 !important;
+  color: white !important;
+  border-color: #2D5A27 !important;
+}
+
+/* Common Hover for all primary buttons */
+.btn-primary-w2w:hover {
+  background-color: #23471f !important;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(45, 90, 39, 0.3);
+}
+
+.footer-link:hover {
+  color: #E8F5E9 !important;
+  text-decoration: underline !important;
+}
+
+.modern-card {
+  transition: all 0.3s ease;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
