@@ -2,23 +2,22 @@ const router = require('express').Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const path = require('path');
 
+//For registeration Route
 router.post('/register', async (req, res) => {
     try {
         const { firstName, lastName, email, location, phone, userType, password } = req.body;
 
-        // 1. පද්ධතියට දත්ත ලැබෙනවාද කියා console එකේ බලන්න (පසුව මෙය ඉවත් කරන්න)
-        console.log("දත්ත ලැබුණා:", req.body);
+        console.log("Data recieved:", req.body);
 
-        // 2. Email එක පරීක්ෂා කිරීම
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: "Email already exists!" });
 
-        // 3. Password එක Hash කිරීම
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // 4. දත්ත ගබඩා කිරීම
         const newUser = new User({
             firstName,
             lastName,
@@ -26,7 +25,7 @@ router.post('/register', async (req, res) => {
             location,
             phone,
             userType,
-            password: hashedPassword // Hash කළ මුරපදය මෙතැනට වැටේ
+            password: hashedPassword
         });
 
         const savedUser = await newUser.save();
@@ -38,13 +37,47 @@ router.post('/register', async (req, res) => {
     }
 });
 
+// for saving profile image uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); //give unique name to file
+    }
+});
+
+const upload = multer({ storage: storage });
+
+// upload profile image and update profile route
+router.put('/update-profile/:id', upload.single('profileImage'), async (req, res) => {
+    try {
+        let updateData = { ...req.body };
+
+        if (req.file) {
+            // create the URL to access the uploaded image
+            updateData.profileImage = `http://localhost:5000/uploads/${req.file.filename}`;
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+            req.params.id,
+            { $set: updateData },
+            { new: true }
+        );
+        res.status(200).json(updatedUser);
+    } catch (err) {
+        console.error("Update Error:", err);
+        res.status(500).json({ message: "Update failed", error: err.message });
+
+
+    }
+});
+
 // Login Route
-// auth.js හි ලොගින් කොටස මෙසේ වෙනස් කර බලන්න
 router.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email });
 
-        // පරිශීලකයා නොමැති නම් හෝ password එක වැරදි නම් එකම මැසේජ් එකක් දෙන්න
         if (!user) {
             return res.status(400).json({ message: "Invalid Email or Password!" });
         }
@@ -65,6 +98,59 @@ router.post('/login', async (req, res) => {
 
     } catch (err) {
         res.status(500).json({ message: "Server error", error: err.message });
+    }
+});
+
+// profile update route 
+router.put('/update/:id', async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            req.params.id,
+            { $set: req.body }, // update only the fields sent in the request body
+            { new: true }
+        );
+        res.status(200).json(updatedUser);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+//update password route
+router.put('/change-password/:id', async (req, res) => {
+    try {
+        const { currentPassword, newPassword } = req.body;
+
+        // find user by id
+        const user = await User.findById(req.params.id);
+        if (!user) return res.status(404).json({ message: "User not found!" });
+
+        // 2. validate current password
+        // user.password is the hashed password stored in the database
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: "Current password is incorrect!" });
+        }
+
+        // 3. check if new password is same as old password
+        const isSameAsOld = await bcrypt.compare(newPassword, user.password);
+        if (isSameAsOld) {
+            return res.status(400).json({ message: "New password cannot be the same as the old password!" });
+        }
+
+        // 4. hash the new password
+        const salt = await bcrypt.genSalt(10);
+        const hashedNewPassword = await bcrypt.hash(newPassword, salt);
+
+        // 5. database update
+        await User.findByIdAndUpdate(req.params.id, {
+            password: hashedNewPassword
+        });
+
+        res.status(200).json({ message: "Password updated successfully!" });
+    } catch (err) {
+        // Console log the error for debugging
+        console.error("Change Password Error:", err);
+        res.status(500).json({ message: "Server error occurred!", error: err.message });
     }
 });
 
