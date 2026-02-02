@@ -1,8 +1,15 @@
+//import libraries
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const authRoutes = require('./routes/auth'); // Routes මුලින්ම Import කරන්න [cite: 72]
+const path = require('path');
+
+//Import Routes
+const authRoutes = require('./routes/auth');
+const listingRoute = require('./routes/listings');
+const categoryRoute = require('./routes/categories');
+const requestRoute = require('./routes/requests');
 
 // Config
 dotenv.config();
