@@ -28,7 +28,6 @@ const Register = () => {
             : { backgroundColor: 'transparent', color: '#333' };
     };
 
-    // මුරපදයේ ශක්තිමත්භාවය පරීක්ෂා කිරීමේ function එක
     const isStrongPassword = (password) => {
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         return regex.test(password);
@@ -37,7 +36,6 @@ const Register = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
 
-        // 1. මුරපද දෙක සමානදැයි පරීක්ෂා කිරීම
         if (formData.password !== formData.confirmPassword) {
             return Swal.fire({
                 title: 'Error!',
@@ -47,7 +45,6 @@ const Register = () => {
             });
         }
 
-        // 2. මුරපදය ශක්තිමත්දැයි පරීක්ෂා කිරීම (අකුරු 8, Simple, Capital, Special Char)
         if (!isStrongPassword(formData.password)) {
             return Swal.fire({
                 title: 'Weak Password!',
@@ -76,7 +73,6 @@ const Register = () => {
                 });
             }
         } catch (error) {
-            // 3. Email එක දැනටමත් පද්ධතියේ තිබේදැයි පරීක්ෂා කිරීම (Backend එකෙන් ලැබෙන error එක අනුව)
             let errorMsg = 'Registration Unsuccessful! Please try again!';
             if (error.response?.status === 400 || error.response?.status === 409) {
                 errorMsg = 'This email is already registered!';
