@@ -10,9 +10,7 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        console.log("යවන දත්ත:", { email, password }); // පරීක්ෂා කිරීමට මෙය එක් කරන්න
         try {
-            // Backend එකට දත්ත යැවීම
             const res = await axios.post('http://localhost:5000/api/login', { email, password });
 
             Swal.fire({
@@ -21,9 +19,10 @@ const Login = () => {
                 icon: 'success',
                 confirmButtonColor: '#2D5A27',
             }).then(() => {
-                // User විස්තර LocalStorage එකේ Save කිරීම
+                // Save user details to LocalStorage
                 localStorage.setItem('user', JSON.stringify(res.data));
-                navigate('/');
+
+                window.location.href = "/";
             });
         } catch (err) {
             Swal.fire({
