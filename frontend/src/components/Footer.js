@@ -5,7 +5,7 @@ const Footer = () => {
         <footer className="py-5 text-white" style={{ backgroundColor: '#1B4332' }}>
             <div className="container">
                 <div className="row align-items-center">
-                    {/* වම් පැත්ත - විස්තර */}
+                    {/* Left Side - Details */}
                     <div className="col-md-6 text-center text-md-start mb-4 mb-md-0">
                         <h5 className="fw-bold mb-2">Waste2Worth (W2W)</h5>
                         <p className="small opacity-75 mb-0">
@@ -13,7 +13,7 @@ const Footer = () => {
                         </p>
                     </div>
 
-                    {/* දකුණු පැත්ත - Links සහ Social Media */}
+                    {/* Right Side - Links and Social Media */}
                     <div className="col-md-6 text-center text-md-end">
                         <div className="d-flex justify-content-center justify-content-md-end gap-4 mb-3">
                             <a href="#" className="text-white text-decoration-none small footer-link">Home</a>
@@ -37,6 +37,4 @@ const Footer = () => {
         </footer>
     );
 };
-
-// මේ පේළිය අනිවාර්යයෙන්ම තියෙන්න ඕන, නැත්නම් App.js එකේදී Error එක එනවා
 export default Footer;
