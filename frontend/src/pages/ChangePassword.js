@@ -35,7 +35,7 @@ const ChangePassword = () => {
 
         try {
             // Sending data to the Backend
-            const res = await axios.put(`http://localhost:5000/api/change-password/${userId}`, {
+            const res = await axios.put(`https://waste2worth-oip8.onrender.com/api/change-password/${userId}`, {
                 currentPassword,
                 newPassword
             });

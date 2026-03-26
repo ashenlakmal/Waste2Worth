@@ -19,7 +19,7 @@ const DonorDashboard = () => {
 
     const fetchRequests = async (donorId) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/requests/received/${donorId}`);
+            const res = await axios.get(`https://waste2worth-oip8.onrender.com/api/requests/received/${donorId}`);
             setRequests(res.data);
         } catch (err) { console.error(err); }
     };
@@ -52,7 +52,7 @@ const DonorDashboard = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.put(`http://localhost:5000/api/requests/action/${requestId}`, { status: action });
+                    await axios.put(`https://waste2worth-oip8.onrender.com/api/requests/action/${requestId}`, { status: action });
                     Swal.fire('Updated!', 'Status updated successfully.', 'success');
                     fetchRequests(user._id);
                 } catch (err) {

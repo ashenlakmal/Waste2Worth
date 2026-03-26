@@ -20,7 +20,7 @@ const RecipientDashboard = () => {
 
     const fetchMyRequests = async (userId) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/requests/my/${userId}`);
+            const res = await axios.get(`https://waste2worth-oip8.onrender.com/api/requests/my/${userId}`);
             setMyRequests(res.data);
         } catch (err) { console.error(err); }
     };
@@ -30,7 +30,7 @@ const RecipientDashboard = () => {
         Swal.fire({ title: 'Confirm Details?', showCancelButton: true, confirmButtonText: 'Yes' }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.put(`http://localhost:5000/api/requests/update-delivery/${requestId}`, { deliveryAddress: address, contactNumber: phone });
+                    await axios.put(`https://waste2worth-oip8.onrender.com/api/requests/update-delivery/${requestId}`, { deliveryAddress: address, contactNumber: phone });
                     Swal.fire('Sent!', 'Details updated.', 'success'); setEditingRequestId(null); fetchMyRequests(user._id);
                 } catch (err) { Swal.fire('Error', 'Failed', 'error'); }
             }
@@ -48,7 +48,7 @@ const RecipientDashboard = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.put(`http://localhost:5000/api/requests/action/${requestId}`, { status: 'Completed' });
+                    await axios.put(`https://waste2worth-oip8.onrender.com/api/requests/action/${requestId}`, { status: 'Completed' });
                     Swal.fire('Great!', 'Transaction completed.', 'success');
                     fetchMyRequests(user._id);
                 } catch (err) { Swal.fire('Error', 'Failed', 'error'); }

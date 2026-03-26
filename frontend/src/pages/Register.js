@@ -60,7 +60,7 @@ const Register = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:5000/api/register', dataToSend);
+            const response = await axios.post('https://waste2worth-oip8.onrender.com/api/register', dataToSend);
 
             if (response.status === 200) {
                 Swal.fire({

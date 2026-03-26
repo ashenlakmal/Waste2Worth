@@ -62,11 +62,11 @@ const BrowseListings = () => {
 
     }, [navigate]);
 
-    const fetchCategories = async () => { try { const res = await axios.get('http://localhost:5000/api/categories'); setCategories(res.data); } catch (err) { console.error(err); } };
-    const fetchMyListings = async (userId) => { try { const res = await axios.get(`http://localhost:5000/api/listings/my/${userId}`); setMyListings(res.data); } catch (err) { console.error(err); } };
+    const fetchCategories = async () => { try { const res = await axios.get('https://waste2worth-oip8.onrender.com/api/categories'); setCategories(res.data); } catch (err) { console.error(err); } };
+    const fetchMyListings = async (userId) => { try { const res = await axios.get(`https://waste2worth-oip8.onrender.com/api/listings/my/${userId}`); setMyListings(res.data); } catch (err) { console.error(err); } };
     const fetchFeedListings = async (currentUserId) => {
         try {
-            const res = await axios.get('http://localhost:5000/api/listings/feed/all');
+            const res = await axios.get('https://waste2worth-oip8.onrender.com/api/listings/feed/all');
             const filtered = res.data.filter(item => item.donor?._id !== currentUserId);
             setFeedListings(filtered);
         } catch (err) { console.error("Error fetching feed:", err); }
@@ -74,7 +74,7 @@ const BrowseListings = () => {
 
     const fetchUserRequests = async (userId) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/requests/my/${userId}`);
+            const res = await axios.get(`https://waste2worth-oip8.onrender.com/api/requests/my/${userId}`);
             const ids = res.data.map(req => (req.listingId && req.listingId._id) ? req.listingId._id : req.listingId);
             setRequestedListingIds(ids);
         } catch (err) { console.error(err); }
@@ -142,7 +142,7 @@ const BrowseListings = () => {
         Swal.fire({ title: 'Are you sure?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'Yes, delete it!' }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`http://localhost:5000/api/listings/delete/${selectedItem._id}`);
+                    await axios.delete(`https://waste2worth-oip8.onrender.com/api/listings/delete/${selectedItem._id}`);
                     Swal.fire('Deleted!', 'Listing deleted.', 'success');
                     setShowDetailModal(false);
                     fetchMyListings(user._id);
@@ -170,8 +170,8 @@ const BrowseListings = () => {
 
         try {
             let res;
-            if (isEditing) res = await axios.put(`http://localhost:5000/api/listings/update/${editId}`, data, { headers: { "Content-Type": "multipart/form-data" } });
-            else res = await axios.post('http://localhost:5000/api/listings/add', data, { headers: { "Content-Type": "multipart/form-data" } });
+            if (isEditing) res = await axios.put(`https://waste2worth-oip8.onrender.com/api/listings/update/${editId}`, data, { headers: { "Content-Type": "multipart/form-data" } });
+            else res = await axios.post('https://waste2worth-oip8.onrender.com/api/listings/add', data, { headers: { "Content-Type": "multipart/form-data" } });
 
             if (res.status === 200) {
                 Swal.fire('Success!', isEditing ? 'Updated successfully.' : 'Listed successfully.', 'success');
@@ -205,7 +205,7 @@ const BrowseListings = () => {
             if (result.isConfirmed) {
                 try {
                     const requestData = { listingId: selectedItem._id, recipientId: user._id, donorId: donorId, purpose: requestMessage };
-                    await axios.post('http://localhost:5000/api/requests/add', requestData);
+                    await axios.post('https://waste2worth-oip8.onrender.com/api/requests/add', requestData);
                     setRequestedListingIds([...requestedListingIds, selectedItem._id]);
                     Swal.fire('Success', 'Request sent!', 'success');
                     setShowRequestModal(false); setRequestMessage('');
@@ -419,7 +419,7 @@ const BrowseListings = () => {
                     </div>
                 )}
 
-                {/* --- Request Modal (Updated with Polite Message) --- */}
+                {/* --- Request Modal--- */}
                 {showRequestModal && selectedItem && (
                     <div className="modal d-block" style={{ backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(5px)', zIndex: 1070 }}>
                         <div className="modal-dialog modal-dialog-centered">

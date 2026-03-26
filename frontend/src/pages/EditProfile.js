@@ -28,7 +28,7 @@ const EditProfile = () => {
         Object.keys(formData).forEach(key => data.append(key, formData[key]));
 
         try {
-            const res = await axios.put(`http://localhost:5000/api/update-profile/${user._id}`, data);
+            const res = await axios.put(`https://waste2worth-oip8.onrender.com/api/update-profile/${user._id}`, data);
             if (res.status === 200) {
                 localStorage.setItem('user', JSON.stringify(res.data));
                 Swal.fire('Success', 'Profile updated!', 'success').then(() => navigate('/profile'));

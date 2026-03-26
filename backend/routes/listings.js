@@ -14,7 +14,7 @@ router.post('/add', upload.array('listingImages', 5), async (req, res) => {
     try {
         const { donor, title, description, category, listingType, price, deadline, collectionMethod, location } = req.body;
         let imageUrls = [];
-        if (req.files) imageUrls = req.files.map(file => `http://localhost:5000/uploads/${file.filename}`);
+        if (req.files) imageUrls = req.files.map(file => `https://waste2worth-oip8.onrender.com/uploads/${file.filename}`);
 
         const newListing = new Listing({
             donor, title, description, category, listingType, price, deadline, collectionMethod, location,
@@ -53,7 +53,7 @@ router.put('/update/:id', upload.array('listingImages', 5), async (req, res) => 
         let updateData = { title, description, category, listingType, price, deadline, collectionMethod, location };
 
         if (req.files && req.files.length > 0) {
-            updateData.images = req.files.map(file => `http://localhost:5000/uploads/${file.filename}`);
+            updateData.images = req.files.map(file => `https://waste2worth-oip8.onrender.com/uploads/${file.filename}`);
         }
 
         const updatedListing = await Listing.findByIdAndUpdate(req.params.id, { $set: updateData }, { new: true });

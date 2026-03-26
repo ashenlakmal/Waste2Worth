@@ -56,7 +56,7 @@ router.put('/update-profile/:id', upload.single('profileImage'), async (req, res
 
         if (req.file) {
             // create the URL to access the uploaded image
-            updateData.profileImage = `http://localhost:5000/uploads/${req.file.filename}`;
+            updateData.profileImage = `https://waste2worth-oip8.onrender.com/uploads/${req.file.filename}`;
         }
 
         const updatedUser = await User.findByIdAndUpdate(
