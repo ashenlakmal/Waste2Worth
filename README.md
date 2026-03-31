@@ -3,6 +3,8 @@
 
 **Waste2Worth** is an innovative MERN-stack platform designed to minimize environmental waste by facilitating the donation of reusable items. We aim to bridge the gap between those who have surplus goods and those in need, fostering a sustainable and supportive community.
 
+🌐 **Live Demonstration:** [Experience Waste2Worth Here](https://waste2-worth-ten.vercel.app/)
+
 ---
 
 ## 👥 The Team (Group 13)
