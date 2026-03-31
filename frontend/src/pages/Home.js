@@ -16,7 +16,7 @@ const Home = () => {
                     </p>
                     <div className="d-flex justify-content-center gap-3">
                         {/* Start Journey Button */}
-                        <Link to="/BrowseListings" className="btn btn-lg px-5 py-3 text-white btn-primary-w2w shadow" style={{ backgroundColor: '#208411ff', border: 'none', borderRadius: '50px', fontWeight: 'bold' }}>
+                        <Link to="/listings" className="btn btn-lg px-5 py-3 text-white btn-primary-w2w shadow" style={{ backgroundColor: '#208411ff', border: 'none', borderRadius: '50px', fontWeight: 'bold' }}>
                             Start Your Journey Now
                         </Link>
                     </div>
